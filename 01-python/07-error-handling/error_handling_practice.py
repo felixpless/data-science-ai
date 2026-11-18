@@ -23,10 +23,10 @@ for order in test_orders:
         profit = calculate_realized_profit(order)
         print(order["order_id"], profit)
     except KeyError as error:
-        print(f"{order["order_id"]}: {error}")
+        print(f"{order['order_id']}: {error}")
 
     except TypeError as error:
-        print(f"{order["order_id"]}: {error}")
+        print(f"{order['order_id']}: {error}")
 
     except ValueError as error:
-        print(f"{order["order_id"]}: {error}")
+        print(f"{order['order_id']}: {error}")

@@ -1,13 +1,13 @@
 from pathlib import Path
 import csv
 
-file_path = Path("01-python/08-professional-python/orders.txt")
+file_path = Path(__file__).with_name("orders.txt")
 # file_path.write_text("O-101,120,80\nO-102,75,50")
 print(file_path)
 print(type(file_path))
 print(file_path.exists())
 
-content = file_path.read_text()
+content = file_path.read_text(encoding="utf-8")
 
 print(content)
 print(type(content))
@@ -47,7 +47,7 @@ print(type(content))
 
 print()
 orders = []
-with file_path.open("r") as file:
+with file_path.open(encoding="utf-8", newline="") as file:
     reader = csv.DictReader(file)
 
     for row in reader:

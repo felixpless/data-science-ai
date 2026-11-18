@@ -1,83 +1,31 @@
-# 03 — Functions
+# Chapter 01 — Python Fundamentals
 
-Functions encapsulate **reusable logic**. Prefer small functions with one clear responsibility, explicit inputs, and a useful return value.
+**Completed · 8/8 modules**
 
-## Define, call, and return
+Work through the lessons in order, from references and loops to a tested CSV order analysis. Each lesson links to its exercise and gives a command to run it.
 
-```python
-def calculate_profit(revenue, cost):
-    return revenue - cost
+| Lesson | What you practise |
+| --- | --- |
+| [01 — Python Basics](01-basics/README.md) | Follow a list through mutation, copying, and reassignment. Compare the object IDs after a new list is assigned. |
+| [02 — Control Flow](02-control-flow/README.md) | Accumulate shipment weights, filter delivered revenue, and use thresholds of 100 and 200 to classify orders. |
+| [03 — Functions](03-functions/README.md) | Pass one order or a collection to a function. Compare quoted shipping costs, delivery status, and realized profit. |
+| [04 — Data Structures](04-data-structures/README.md) | Look up fields in shipment records, unpack coordinates, and use comprehensions to build order lists, sets, and dictionaries. |
+| [05 — Modules](05-modules/README.md) | Trace how a calculation in one file becomes available to a caller through an import. |
+| [06 — Object-Oriented Programming](06-oop/README.md) | Use Order and Shipment instances to see how changing delivery status affects the results of method calls. |
+| [07 — Error Handling](07-error-handling/README.md) | Handle an invalid order and continue processing the next record. |
+| [08 — Professional Python](08-professional-python/README.md) | Read order data, validate individual rows, and test the financial metrics calculated from delivered orders. |
 
-profit = calculate_profit(120, 80)  # 40
-print(profit)
+## Final exercise and tests
+
+Run these commands from the repository root with pytest installed.
+
+```sh
+python3 01-python/08-professional-python/python_final_exercise.py
+python3 -m pytest -q 01-python
 ```
 
-- **Parameters** are names in the definition (`revenue`, `cost`).
-- **Arguments** are values passed in a call (`120`, `80`).
-- `return` sends a result to the caller; `print` displays it.
-- Without an explicit `return`, a function returns `None`.
+The [final exercise](08-professional-python/python_final_exercise.py) calculates delivered revenue, profit, and delivery rate from the sample CSV. The [professional Python lesson](08-professional-python/README.md) explains the expected results.
 
-## One record versus many records
+## Reference
 
-```python
-def realized_profit(order):
-    if not order["delivered"]:
-        return 0
-    return order["revenue"] - order["cost"]
-
-orders = [
-    {"revenue": 120, "cost": 80, "delivered": True},
-    {"revenue": 75, "cost": 50, "delivered": False},
-]
-
-total_profit = 0
-for order in orders:
-    total_profit += realized_profit(order)
-
-print(total_profit)  # 40
-```
-
-**Mental model:** `realized_profit(order)` handles **one** observation; the `for` loop processes **many**.
-
-## Defaults, keyword arguments, guard clauses
-
-```python
-def price_with_tax(price, tax_rate=0.19):
-    return price * (1 + tax_rate)
-
-price_with_tax(100)
-price_with_tax(100, tax_rate=0.07)
-
-def margin(revenue, cost):
-    if revenue == 0:
-        return None  # Undefined margin: avoid division by zero
-    return (revenue - cost) / revenue
-```
-
-## Multiple return values and scope
-
-```python
-def financial_metrics(revenue, cost):
-    profit = revenue - cost  # Local variable
-    return profit, profit / revenue if revenue else None
-
-profit, profit_margin = financial_metrics(120, 80)
-```
-
-Avoid functions that silently depend on global variables. Pass required data as parameters.
-
-## Separate calculations from execution
-
-```python
-def calculate_total_revenue(orders):
-    return sum(order["revenue"] for order in orders if order["delivered"])
-
-def main():
-    orders = [{"revenue": 120, "delivered": True}]
-    print(calculate_total_revenue(orders))
-
-if __name__ == "__main__":
-    main()
-```
-
-**Review questions:** Does the function process one item or a collection? Does it return a value? Could it be tested without reading a file? Does it handle zero denominators?
+Use the [Python cheatsheet](PYTHON_01_CHEATSHEET.md) for review. The [original exercises and notes](_archive/original-exercises/) preserve the files that were reorganized, including the [combined practice script](_archive/original-exercises/01-basics/objects_and_variables.py).

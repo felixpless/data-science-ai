@@ -1,5 +1,11 @@
 # 04 — Data Structures
 
+Look up fields in shipment records, unpack coordinates, and use comprehensions to build order lists, sets, and dictionaries.
+
+## Run the exercise
+
+From this lesson folder, run `python3 data_structures.py`. [Open the exercise](data_structures.py).
+
 Choosing the right data structure makes analytics code easier to understand and maintain.
 
 ## Lists — ordered, mutable sequences
@@ -82,3 +88,5 @@ profits = {
 ```
 
 **Review questions:** Is this a list or dictionary? Should I use an index or a key? Am I changing the original object? Does a comprehension improve readability here?
+
+[Chapter overview](../README.md)
